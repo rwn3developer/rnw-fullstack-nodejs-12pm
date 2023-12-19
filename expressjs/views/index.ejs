@@ -1,0 +1,26 @@
+<center>
+    <h1>View User</h1>
+    <table border="1">
+            <tr>
+                <td>Id</td>
+                <td>Name</td>
+                <td>Phone</td>
+                <td>
+                    Action
+                </td>
+            </tr>
+
+            <% record.map((val)=>{ %>
+                <tr>
+                    <td><%= val.id %></td>
+                    <td><%= val.name %></td>
+                    <td><%= val.phone %></td>
+                    <td>
+                        <a href="/deleteData?deleteId=<%= val.id %>">Delete</a>  || 
+                        <a href="/editData?editId=<%= val.id %>">Edit</a>
+                    </td>
+                </tr> 
+           <% }) %>
+    </table>
+    <a href="/add">Add</a>
+</center>
