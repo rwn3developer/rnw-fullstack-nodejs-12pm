@@ -23,18 +23,18 @@
  app.use(express.urlencoded());
 
  app.get('/',(req,res)=>{
+    let single = {};
     return res.render('index',{
-        record
+        record,single
     });
  })
 
- app.get('/add',(req,res)=>{
-    return res.render('add');
- })
+
 
  app.post('/addUser',(req,res)=>{
     let name = req.body.username;
     let phone = req.body.userphone;
+    let id = req.body.editid;
     if(!name || !phone){
         console.log("All filed is required");
         return res.redirect('back');
@@ -44,52 +44,44 @@
         name,
         phone
     }
-    record.push(obj);
-    console.log("User successfully add");
-    return res.redirect('/'); 
+    if(id){
+        let updateData = record.map((val)=>{
+            if(val.id == id){ 
+                val.name = name,
+                val.phone = phone
+            }
+            return val;
+        })
+        record = updateData;
+        console.log("user edited");
+        return res.redirect('/');
+    }else{
+        record.push(obj);
+        console.log("User successfully add");
+        return res.redirect('/'); 
+    }
  })
 
  app.get('/deleteData',(req,res)=>{
     let deleteId = req.query.deleteId;
-
     let deleteRecord = record.filter((val)=>{ 
         return val.id != deleteId;
     })
-
     record = deleteRecord;
     return res.redirect('/');
  })
 
  app.get('/editData',(req,res)=>{
-    let editId = req.query.editId;
-    let single = record.find(item => item.id == editId);
-    if(!single){
-        console.log("Invalid Id"); 
-        return res.redirect('/');
-    }
-    return res.render('edit',{single});
+    const id = req.query.editId;
+    let single = record.find(item => item.id == id);
+    return res.render('index',{single,record});
  })
 
-
- app.post('/updateUser',(req,res)=>{
-    let updateRecord = record.map((val)=>{
-        if(val.id == req.body.editid){
-            val.name = req.body.username;
-            val.phone = req.body.userphone;
-        }
-        return val;
-    })
-
-    record = updateRecord;
-    console.log("Record successfully updated");
-    return res.redirect('/');
-
- })
-
+ 
 
  app.listen(port,(err)=>{
     if(err){
-        console.log(err);
+        console.log(err); 
         return false;
     }
     console.log(`running :- ${port}`);

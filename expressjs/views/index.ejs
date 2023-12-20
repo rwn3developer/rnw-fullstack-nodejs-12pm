@@ -1,4 +1,32 @@
 <center>
+    <h1>Add User</h1>
+    <form method="post" action="/addUser">
+        <input type="hidden" name="editid" value="<%= single.id %>"/>
+        <table border="1">
+            <tr>
+                <td>Name :- </td>
+                <td>
+                    <input type="text" name="username" value="<%= single.name %>"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Phone :- </td>
+                <td>
+                    <input type="text" name="userphone" value="<%= single.phone %>"/> 
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="submit"/>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <a href="/">View</a>
+</center>
+
+<center>
     <h1>View User</h1>
     <table border="1">
             <tr>
