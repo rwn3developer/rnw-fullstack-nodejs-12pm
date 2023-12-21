@@ -1,0 +1,29 @@
+<center>
+    <form method="post" action="/editTodo">
+        <input type="hidden" name="editId"  value="<%= single.id %>"/>
+        <table border="1">
+            <tr>
+                <td>Task :- </td>
+                <td><input type="text" name="task" value="<%= single.task %>"></td>
+            </tr>
+            <tr>
+                <td>Status :- </td>
+                <td>
+                    <select name="status">
+                        <% st = ["default","pending","running","complete"] %>
+                        <option>---status---</option>
+                        <% st.map((item) => { %>
+                            <option <% if(single.status == item) { %> selected <% } %> value="<%= item %>"><%= item %></option>
+                       <% }) %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="Edit" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</center>
