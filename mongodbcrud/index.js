@@ -14,6 +14,7 @@ app.set('view engine','ejs');
 
 app.use(express.urlencoded());
 
+//multiple file upload start
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'uploads')
@@ -22,8 +23,8 @@ const storage = multer.diskStorage({
       cb(null, file.originalname)
     }
   })
-  
   const uploadImage = multer({ storage: storage }).array('images',5);
+//multiple file upload end
 
 app.get('/',(req,res)=>{
     return res.render('view');
