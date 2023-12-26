@@ -1,6 +1,6 @@
 <center>
     <h3>Add User</h3>
-    <form method="post" action="/addRecord">
+    <form method="post" action="/addRecord" enctype="multipart/form-data">
         <table border="1">
             <tr>
                 <td>Name :- </td>
@@ -12,6 +12,12 @@
                 <td>Phone :- </td>
                 <td>
                     <input type="text" name="phone">
+                </td>
+            </tr>
+            <tr>
+                <td>Images :- </td>
+                <td>
+                    <input type="file" multiple name="images">
                 </td>
             </tr>
             <tr>

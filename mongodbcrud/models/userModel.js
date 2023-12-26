@@ -8,6 +8,10 @@ const userSchema = mongoose.Schema({
     phone : {
         type : Number,
         required : true
+    },
+    images : {
+        type : Array,
+        required : true
     }
 })
 
