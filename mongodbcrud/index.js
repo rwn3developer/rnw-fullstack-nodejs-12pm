@@ -4,6 +4,10 @@ const port = 8000;
 
 const app = express();
 
+const path = require('path');
+
+const fs = require('fs');
+
 const db = require('./config/db');
 
 const User = require('./models/userModel');
@@ -13,6 +17,8 @@ const multer = require('multer');
 app.set('view engine','ejs');
 
 app.use(express.urlencoded());
+
+app.use('/uploads',express.static(path.join(__dirname,'uploads')));
 
 //multiple file upload start
 const storage = multer.diskStorage({
@@ -27,7 +33,16 @@ const storage = multer.diskStorage({
 //multiple file upload end
 
 app.get('/',(req,res)=>{
-    return res.render('view');
+    User.find({}).
+    then((record)=>{
+      return res.render('view',{
+        record
+      });
+    }).catch((err)=>{
+      console.log("record not fetch");
+      return false;
+    })
+    
 })
 
 app.get('/add',(req,res)=>{
@@ -53,6 +68,32 @@ app.post('/addRecord',uploadImage,(req,res)=>{
         console.log(err);
         return false;
    })
+})
+
+app.get('/deleteData',(req,res) => {
+    let id = req.query.id;
+
+    User.findById(id).then((oldRecord)=>{
+      //using for loop
+      for(i=0;i<oldRecord.images.length;i++){
+          fs.unlinkSync(oldRecord.images[i]); 
+      }
+      //using map method
+      // oldRecord.images.map((val)=>{
+      //   fs.unlinkSync(val);
+      // })
+    }).catch((err)=>{
+      console.log(err);
+      return false;
+    })
+
+    User.findByIdAndDelete(id).then((success)=>{
+        console.log("Delete record");
+        return res.redirect('/');
+    }).catch((err)=>{
+      console.log(err);
+      return false;
+    })
 })
 
 app.listen(port,(err)=>{

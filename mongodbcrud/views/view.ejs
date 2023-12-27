@@ -1,4 +1,28 @@
 <center>
     <h1>View Page</h1>
+    <table border="1">
+        <tr>
+            <td>Srno</td>
+            <td>Name</td>
+            <td>Phone</td>
+            <td>Image</td>
+            <td>Action</td>
+        </tr>
+        <% record.map((val,i)=>{i=i+1 %>
+            <tr>
+                <td><%= i %></td>
+                <td><%= val.name %></td>
+                <td><%= val.phone %></td>
+                <td>
+                    <% val.images.map((item)=>{ %>
+                        <img src="<%= item %>" width="50"/>
+                    <% }) %>
+                </td> 
+                <td>
+                    <a href="/deleteData?id=<%= val.id %>">Delete</a>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
     <a href="/add">Add</a>
 </center>
