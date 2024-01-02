@@ -1,0 +1,35 @@
+<center>
+    <h1>View User</h1>
+    
+    <table border="1">
+        <thead>
+            <th>Srno</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Gender</th>
+            <th>Hobby</th>
+            <th>City</th>
+            <th>Phone</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <% record.map((val,i)=>{i=i+1 %>
+                <tr>
+                    <td><%= i %></td>
+                    <td><%= val.name %></td>
+                    <td><%= val.email %></td>
+                    <td><%= val.password %></td>
+                    <td><%= val.gender %></td>
+                    <td><%= val.hobby %></td>
+                    <td><%= val.city %></td>
+                    <td><%= val.phone %></td> 
+                    <td>
+                        <a href="/deleteRecord?id=<%= val.id %>">Delete</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <a href="/add">Add</a>
+</center>
