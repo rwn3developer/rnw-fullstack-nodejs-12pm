@@ -1,6 +1,5 @@
 <center>
     <h1>View User</h1>
-    
     <table border="1">
         <thead>
             <th>Srno</th>
@@ -11,6 +10,8 @@
             <th>Hobby</th>
             <th>City</th>
             <th>Phone</th>
+            <th>Image</th>
+
             <th>Action</th>
         </thead>
         <tbody>
@@ -24,6 +25,9 @@
                     <td><%= val.hobby %></td>
                     <td><%= val.city %></td>
                     <td><%= val.phone %></td> 
+                    <td>
+                        <img src="<%= val.image %>" width="100"/>
+                    </td>
                     <td>
                         <a href="/deleteRecord?id=<%= val.id %>">Delete</a>
                     </td>

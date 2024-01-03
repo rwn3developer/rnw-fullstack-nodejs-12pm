@@ -1,6 +1,6 @@
 <center>
     <h1>Add User</h1>
-    <form method="post" action="/addRecord">
+    <form method="post" action="/addRecord" enctype="multipart/form-data">
         <table border="1">
             <tr>
                 <td>Name :- </td>
@@ -45,6 +45,12 @@
                 <td>Phone :- </td>
                 <td>
                     <input type="text" name="phone">
+                </td>
+            </tr>
+            <tr>
+                <td>File Upload :- </td>
+                <td>
+                    <input type="file" name="avatar">
                 </td>
             </tr>
             <tr>
