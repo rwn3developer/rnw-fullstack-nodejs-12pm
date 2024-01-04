@@ -1,0 +1,75 @@
+<center>
+    <h1>Edit User</h1>
+    <form method="post" action="/updateRecord" enctype="multipart/form-data">
+        
+        <table border="1">
+            <input type="hidden" name="editid" value="<%= single.id %>"
+            <tr>
+                <td>Name :- </td>
+                <td><input type="text" name="name" value="<%= single.name %>"></td>
+            </tr>
+            <tr>
+                <td>Email :- </td>
+                <td><input type="text" name="email" value="<%= single.email %>"></td>
+            </tr>
+            <tr>
+                <td>Password :- </td>
+                <td><input type="text" name="password" value="<%= single.password %>"></td>
+            </tr>
+            <tr>
+                <td>Gender :- </td>
+                <td>
+                    <input type="radio" <% if(single.gender=="male" ) { %> checked <% } %> name="gender"
+                        value="male">Male
+                        <input type="radio" <% if(single.gender=="female" ) { %> checked <% } %> name="gender"
+                            value="female">Female
+                </td>
+            </tr>
+            <tr>
+                <td>Hobby :- </td>
+                <td>
+                    <input type="checkbox" <% if(single.hobby.includes('cricket')) { %> checked <% } %> name="hobby"
+                        value="cricket">Cricket
+                        <input type="checkbox" <% if(single.hobby.includes('music')) { %> checked <% } %> name="hobby"
+                            value="music">Music
+                            <input type="checkbox" name="hobby" <% if(single.hobby.includes('reading')) { %> checked <%
+                                } %> value="reading">Reading
+                </td>
+            </tr>
+            <tr>
+                <td>City :- </td>
+                <td>
+                    <select name="city">
+                        <% const city=["surat","vadodara","rajkot"] %>
+                            <option value="">---select city</option>
+                            <% city.map((val)=>{ %>
+                                <option <% if(single.city == val) { %> selected <% } %>  value="<%= val %>">
+                                    <%= val %>
+                                </option>
+                                <% }) %>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Phone :- </td>
+                <td>
+                    <input type="text" name="phone" value="<%= single.phone %>">
+                </td>
+            </tr>
+            <tr>
+                <td>File Upload :- </td>
+                <td>
+                    <input type="file" name="avatar">
+                    <img src="<%= single.image %>" width="50"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <input type="submit" value="submit">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <a href="/">View</a>
+</center>

@@ -29,7 +29,8 @@
                         <img src="<%= val.image %>" width="100"/>
                     </td>
                     <td>
-                        <a href="/deleteRecord?id=<%= val.id %>">Delete</a>
+                        <a href="/deleteRecord?id=<%= val.id %>">Delete</a> ||
+                        <a href="/editRecord?id=<%= val.id %>">Edit</a>
                     </td>
                 </tr>
             <% }) %>

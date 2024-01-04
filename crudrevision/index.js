@@ -87,6 +87,72 @@ app.get('/deleteRecord',(req,res)=>{
     })
 })
 
+app.get('/editRecord',(req,res)=>{ 
+    let id = req.query.id;
+    User.findById(id)
+    .then((single)=>{
+       return res.render('edit',{
+            single
+       })
+    }).catch((err)=>{
+        console.log(err);
+        return false;
+    }) 
+})
+
+app.post('/updateRecord',imageUpload,(req,res)=>{
+    let id = req.body.editid;
+        if(req.file){
+            User.findById(id)
+            .then((oldRecord)=>{
+                fs.unlinkSync(oldRecord.image)
+            }).catch((err)=>{
+                console.log(err);
+                return false;
+            })
+
+            User.findByIdAndUpdate(id,{
+                name : req.body.name,
+                email : req.body.email,
+                password : req.body.password,
+                gender : req.body.gender,
+                hobby : req.body.hobby,
+                city : req.body.city,
+                phone : req.body.phone,
+                image : req.file.path
+            }).then((success)=>{
+                console.log("successfully edit");
+                return res.redirect('/');
+            }).catch((err)=>{
+                console.log(err);
+                return false
+            })
+        }else{
+            User.findById(id)
+            .then((oldRecord)=>{
+                User.findByIdAndUpdate(id,{
+                    name : req.body.name,
+                    email : req.body.email,
+                    password : req.body.password,
+                    gender : req.body.gender,
+                    hobby : req.body.hobby,
+                    city : req.body.city,
+                    phone : req.body.phone,
+                    image : oldRecord.image
+                }).then((success)=>{
+                    console.log("successfully edit");
+                    return res.redirect('/');
+                }).catch((err)=>{
+                    console.log(err);
+                    return false
+                })
+            }).catch((err)=>{
+                console.log(err);
+                return false;
+            })
+        }
+})
+
 
 
 //server created
