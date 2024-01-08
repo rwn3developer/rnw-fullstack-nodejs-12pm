@@ -6,7 +6,7 @@ const port = 8000;
 
 app.set('view engine','ejs');
 
-app.use('/',require('./routes/indexRoute'));
+app.use('/',(require('./routes/indexRoutes')))
 
 app.listen(port,(err)=>{
     if(err){

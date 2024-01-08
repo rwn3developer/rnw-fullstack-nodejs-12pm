@@ -1,7 +1,7 @@
-const homePage = (req,res) => {
+const milansir = (req,res)=>{
     return res.render('home');
 }
 
 module.exports = {
-    homePage
+    milansir
 }

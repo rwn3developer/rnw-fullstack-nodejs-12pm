@@ -2,18 +2,13 @@ const express = require('express');
 
 const routes = express.Router();
 
-const indexcontroller = require('../controllers/IndexController');
 const homecontroller = require('../controllers/HomeController');
-const aboutcontroller = require('../controllers/AboutController');
 const productcontroller = require('../controllers/ProductController');
+const aboutcontroller = require('../controllers/AboutController');
 
-
-
-routes.get('/',indexcontroller.indexPage)
-routes.get('/home',homecontroller.homePage);
-routes.get('/about',aboutcontroller.aboutPage);
+routes.get('/',homecontroller.milansir);
 routes.get('/product',productcontroller.productPage);
-
+routes.get('/about',aboutcontroller.aboutPage)
 
 
 module.exports = routes;
