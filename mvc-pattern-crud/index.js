@@ -8,6 +8,8 @@ app.set('view engine','ejs');
 
 const db = require('./config/db');
 
+app.use(express.urlencoded());
+
 app.use('/',require('./routes/indexRoute'));
 
 app.listen(port,(err)=>{

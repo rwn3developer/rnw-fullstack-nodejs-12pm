@@ -5,7 +5,18 @@
             <td>Srno</td>
             <td>Name</td>
             <td>Phone</td>
+            <td>Action</td>
         </tr>
+
+        <% record.map((val,i)=>{i=i+1 %>
+            <tr>
+                <td><%= i %></td>
+                <td><%= val.name %></td>
+                <td><%= val.phone %></td>
+                
+            </tr>
+        <% }) %>
+
     </table>
     <a href="/add">Add</a>
 </center>
