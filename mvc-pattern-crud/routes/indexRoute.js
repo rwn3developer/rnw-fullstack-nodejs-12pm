@@ -8,5 +8,8 @@ routes.get('/',crudcontroller.viewRecord);
 routes.get('/add',crudcontroller.add);
 routes.post('/addRecord',crudcontroller.insertData);
 
+routes.get('/api',crudcontroller.apicalling);
+routes.get('/themedata',crudcontroller.themedata);
+
 
 module.exports = routes;
