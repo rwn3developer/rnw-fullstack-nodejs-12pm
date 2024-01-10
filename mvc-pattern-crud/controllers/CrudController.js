@@ -59,33 +59,40 @@ const apicalling = async(req,res) => {
 const themedata = async(req,res) => {
     try{
         let idd = req.query.id;
-        let {data} = await axios.get(`https://decoraevnt.online/api/category?providedPassword=Decora957438`);
-        
-
-        let result = [];
-        for(let i=0;i<data.length;i++){
-            for(j=0;j<data[i].themes.length;j++){
-                if(data[i].themes[j].categoryId == idd){
-
-                    result.push(data[i].themes[j]);
-                    
-                   
-                }
-            }
-        }
-        return res.render('themepage',{
-            themerecord :result
+        //using for loop perfect work
+        // let {data} = await axios.get(`https://decoraevnt.online/api/category?providedPassword=Decora957438`);
+        // let result = [];
+        // for(let i=0;i<data.length;i++){
+        //     for(j=0;j<data[i].themes.length;j++){
+        //         if(data[i].themes[j].categoryId == idd){
+        //             result.push(data[i].themes[j]);
+        //         }
+        //     }
+        // }
+        // return res.render('themepage',{
+        //     themerecord :result
             
+        // })
+         //using for loop perfect work
+
+
+         //using map method
+         let {data} = await axios.get(`https://decoraevnt.online/api/category?providedPassword=Decora957438`);
+         let result = [];
+         let all = data.map((val)=>{
+            let themedata = val.themes.map((item)=>{
+                if(item.categoryId == idd){
+                    result.push(item);
+                }
+            })
+         })
+         return res.render('themepage',{
+                themerecord :result
+                
         })
 
-        // let theme = data.filter((val)=>{
-        //     let a = val.themes.filter((item)=>{
-        //         return item.categoryId == idd
-        //     })
-        //    return res.render('themepage',{
-        //         themerecord : a
-        //    })   
-        // })
+
+       
        
     }catch(err){
         console.log(err);
