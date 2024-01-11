@@ -21,7 +21,7 @@ app.get('/',(req,res)=>{
     return res.render('index');
 })
 
-app.get('/home',chekAge,(req,res)=>{
+app.get('/home',(req,res)=>{
     return res.render('home');
 })
 

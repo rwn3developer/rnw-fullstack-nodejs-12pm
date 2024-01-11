@@ -2,6 +2,8 @@ const UserModel = require('../models/UserModel');
 
 const axios = require('axios');
 
+const fs = require('fs');
+
 const viewRecord = async(req,res) => {
     try{
         let record = await UserModel.find({});
@@ -22,13 +24,13 @@ const insertData = async(req,res) => {
    try{
         const {name,phone}  = req.body;
 
-        if(!name || !phone){
+        if(!name || !phone ){
             console.log("All field is required");
             return false
         }
 
         let userAdd = await UserModel.create({
-            name,phone
+            name,phone,image : req.file.path
         })
         if(userAdd){
             console.log("User successfully Add"); 
@@ -41,6 +43,53 @@ const insertData = async(req,res) => {
         console.log(err);
         return false;
    }
+}
+
+const deleteData = async(req,res) => {
+    try{
+        let deleterecord = await UserModel.findById(req.query.id);
+       fs.unlinkSync(deleterecord.image);
+       let d = await UserModel.findByIdAndDelete(req.query.id);
+       console.log("record deleted");
+       return res.redirect('/');
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
+const editData = async(req,res) => {
+    try{
+        let id=  req.query.id;
+        let single = await UserModel.findById(id);
+        return res.render('edit',{single});
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
+const updateRecord = async(req,res) => {
+    try{
+        if(req.file){
+            let old = await UserModel.findById(req.body.id);
+            fs.unlinkSync(old.image);
+            let up = await UserModel.findByIdAndUpdate(req.body.id,{
+                name : req.body.name,
+                phone : req.body.phone,
+                image : req.file.path
+            });
+            if(up){
+                console.log("record update");
+                return res.redirect('/');
+            }
+        }else{
+
+        }
+    }catch(err){
+        console.log(err);
+        return false;
+    }
 }
 
 const apicalling = async(req,res) => {
@@ -87,8 +136,7 @@ const themedata = async(req,res) => {
             })
          })
          return res.render('themepage',{
-                themerecord :result
-                
+                themerecord :result    
         })
 
 
@@ -105,5 +153,8 @@ module.exports ={
     add,
     insertData,
     apicalling,
-    themedata
+    themedata,
+    deleteData,
+    editData,
+    updateRecord
 }

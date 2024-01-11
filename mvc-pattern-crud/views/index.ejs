@@ -5,6 +5,7 @@
             <td>Srno</td>
             <td>Name</td>
             <td>Phone</td>
+            <td>Image</td>
             <td>Action</td>
         </tr>
 
@@ -13,7 +14,13 @@
                 <td><%= i %></td>
                 <td><%= val.name %></td>
                 <td><%= val.phone %></td>
-                
+                <td>
+                    <img src="<%= val.image %>" width="100">
+                </td>
+                <td>
+                    <a href="/deleteData?id=<%= val.id %>">Delete</a> || 
+                    <a href="/editData?id=<%= val.id %>">Edit</a>
+                </td>
             </tr>
         <% }) %>
 
