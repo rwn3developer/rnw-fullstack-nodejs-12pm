@@ -84,7 +84,16 @@ const updateRecord = async(req,res) => {
                 return res.redirect('/');
             }
         }else{
-
+            let old = await UserModel.findById(req.body.id);
+            let up = await UserModel.findByIdAndUpdate(req.body.id,{
+                name : req.body.name,
+                phone : req.body.phone,
+                image : old.image
+            });
+            if(up){
+                console.log("record update");
+                return res.redirect('/');
+            }
         }
     }catch(err){
         console.log(err);
