@@ -20,6 +20,9 @@ app.use(express.urlencoded());
 app.use(cookieParser());
 
 app.get('/',(req,res)=>{
+    if(req.cookies['user']){
+        return res.redirect('dashboard');
+    }
     return res.render('index');
 })
 
@@ -83,6 +86,11 @@ app.post('/loginUser',async(req,res)=>{
         console.log(err);
         return false;
     }
+})
+
+app.get('/userLogout',(req,res)=>{
+    res.clearCookie('user');
+    return res.redirect('/');
 })
 
 app.listen(port,(err)=>{
