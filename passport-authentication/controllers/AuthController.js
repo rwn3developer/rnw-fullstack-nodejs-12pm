@@ -1,6 +1,9 @@
 const userModel =  require('../models/userModel');
 
 const index = (req,res) => {
+    if(res.locals.users){
+        return res.redirect('dashboard')
+    }
     return res.render('index')
 }
 
@@ -34,9 +37,22 @@ const loginUser = (req,res) => {
 }
 
 const dashboard = (req,res) => {
+    
     return res.render('dashboard');
 }
 
+const userLogout = (req,res) => {
+    req.logout((err)=>{
+        if(err){
+            console.log(err);
+            return false;
+        }
+        return res.redirect('/');
+    })
+}
+
+
+
 module.exports = {
-    index,register,registerUser,loginUser,dashboard
+    index,register,registerUser,loginUser,dashboard,userLogout
 }

@@ -20,7 +20,7 @@ const passportLocal = require('./config/passport-strategy');
 const session = require('express-session');
 
 app.use(session({
-    name : 'rnw',
+    name :'rnw',
     secret : 'rnw4',
     saveUninitialized : true,
     resave : true,
@@ -29,10 +29,12 @@ app.use(session({
     }
 }))
 
+
 app.use(express.urlencoded());
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(passport.setUser)
 
 app.use('/',(require('./routes/indexRoute')));
 
