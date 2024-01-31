@@ -20,7 +20,7 @@ const passportLocal = require('./config/passport-strategy');
 const session = require('express-session');
 
 app.use(session({
-    name :'rnw',
+    name : 'rnw',
     secret : 'rnw4',
     saveUninitialized : true,
     resave : true,
@@ -28,6 +28,9 @@ app.use(session({
         maxAge : 1000 * 60 * 60 * 24
     }
 }))
+
+
+
 
 
 app.use(express.urlencoded());

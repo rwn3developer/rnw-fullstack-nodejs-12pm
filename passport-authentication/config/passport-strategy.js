@@ -4,19 +4,26 @@ const passportLocal = require('passport-local').Strategy;
 
 const User = require('../models/userModel');
 
+const bcrypt = require('bcrypt');
 
 passport.use(new passportLocal({
     usernameField : 'email'
 },async(email,password,done)=>{
     try{
         let user = await User.findOne({email : email});
-        if(!user || user.password != password){
-            console.log("Email and Password not valid");
+        if(!user){
+            console.log("User not found");
             return done(null,false);
         }
-       return done(null,user)
+        let match = await bcrypt.compare(password,user.password);
+        if(!match){
+            console.log("Password not match");
+            return done(null,false)
+        }
+        return done(null,user);
     }catch(err){
-        done(null,false)
+        console.log(err);
+        return done(null,false);
     }
 }))
 
@@ -24,11 +31,13 @@ passport.serializeUser((user,done)=>{
     return done(null,user._id);
 })
 
+
 passport.deserializeUser(async(id,done)=>{
     try{
         let user = await User.findById(id);
-        return done(null,user)
-    }catch(err){    
+        return done(null,user);
+    }catch(err){
+        console.log(err);
         return done(null,false);
     }
 })
@@ -38,15 +47,13 @@ passport.checkUser = (req,res,next) => {
         return next();
     }
     return res.redirect('/');
-    
 }
 
 passport.setUser = (req,res,next) => {
     if(req.isAuthenticated()){
         res.locals.users = req.user
     }
-    return next()
-    
+    return next();
 }
 
 module.exports = passport;

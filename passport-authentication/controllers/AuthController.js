@@ -1,10 +1,11 @@
+const bcrypt = require('bcrypt');
 const userModel =  require('../models/userModel');
 
 const index = (req,res) => {
     if(res.locals.users){
-        return res.redirect('dashboard')
+        return res.redirect('/dashboard');
     }
-    return res.render('index')
+    return res.render('index');
 }
 
 const register = (req,res) => {
@@ -17,7 +18,7 @@ const registerUser = async(req,res) => {
             let users = await userModel.create({
                 name : req.body.name,
                 email : req.body.email,
-                password : req.body.password,
+                password : await bcrypt.hash(req.body.password,10)
              })
              console.log("User register");
              return res.redirect('/');
@@ -37,7 +38,6 @@ const loginUser = (req,res) => {
 }
 
 const dashboard = (req,res) => {
-    
     return res.render('dashboard');
 }
 
