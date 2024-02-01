@@ -9,9 +9,13 @@ app.set('view engine','ejs');
 
 const db = require('./config/db');
 
-const session = require('express-session');
 
 const flash = require('connect-flash');
+
+const passport = require('passport');
+const passportLocal = require('./config/passportlocal-strategy');
+const session = require('express-session');
+
 
 app.use(session({
     name : 'rnw',
@@ -31,7 +35,9 @@ app.use(function(req,res,next){
 app.use(express.static(path.join(__dirname,'public')))
 
 app.use(express.urlencoded());
-
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(passport.setUser) 
 app.use('/',require('./routes/indexRoutes'));
 
 app.listen(port,(err)=>{
