@@ -25,6 +25,7 @@ routes.get('/dashboard',passport.checkUser,authcontroller.dashboard);
 routes.get('/category',passport.checkUser,categorycontroller.category);
 routes.get('/addcategory',passport.checkUser,categorycontroller.addcategory);
 routes.post('/postCategory',passport.checkUser,categorycontroller.postCategory);
+routes.get('/categoryDelete',passport.checkUser,categorycontroller.categoryDelete);
 //category
 
 
@@ -32,6 +33,7 @@ routes.post('/postCategory',passport.checkUser,categorycontroller.postCategory);
 routes.get('/subcategory',passport.checkUser,subcategorycontroller.subcategory);
 routes.get('/addsubcategory',passport.checkUser,subcategorycontroller.addsubcategory);
 routes.post('/postsubCategory',passport.checkUser,subcategorycontroller.postsubCategory);
+routes.get('/subcategoryDelete',passport.checkUser,subcategorycontroller.subcategoryDelete);
 //subcategory
 
 
@@ -39,7 +41,7 @@ routes.post('/postsubCategory',passport.checkUser,subcategorycontroller.postsubC
 //subcategory
 routes.get('/exsubcategory',passport.checkUser,exsubcategorycontroller.exsubcategory);
 routes.get('/addexsubcategory',passport.checkUser,exsubcategorycontroller.addexsubcategory);
-routes.post('/postexsubCategory',passport.checkUser,exsubcategorycontroller.postrxsubCategory);
+routes.post('/postexsubCategory',passport.checkUser,exsubcategorycontroller.postexsubCategory);
 //subcategory
 
 

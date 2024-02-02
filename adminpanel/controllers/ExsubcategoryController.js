@@ -6,9 +6,10 @@ const ExsubcategoryModel = require('../models/ExsubcategoryModel');
 
 const exsubcategory = async(req,res) => { 
     try{
-        let subcategory = await SubcategoryModel.find({}).populate('categoryId');
+        let exsubcategory = await ExsubcategoryModel.find({}).populate('categoryId').populate('subcategoryId');
+        console.log(exsubcategory);
         return res.render('exsubcategory/exsubcategory',{
-            subcategory
+            exsubcategory
         });
     }catch(err){
         console.log(err);
@@ -32,11 +33,12 @@ const addexsubcategory = async(req,res) => {
     
 }
 
-const postrxsubCategory = async(req,res) => {
+const postexsubCategory = async(req,res) => {
     try{
-        let catregory = await SubcategoryModel.create({
+        let exsubcatregory = await ExsubcategoryModel.create({
             categoryId : req.body.category,
-            subcategory  : req.body.subcategory
+            subcategoryId  : req.body.subcategory,
+            exsubcategory : req.body.exsubcategory
         })
         req.flash('success',"Subcategory successfully add!");
         return res.redirect('addexsubcategory');
@@ -47,5 +49,5 @@ const postrxsubCategory = async(req,res) => {
 }
 
 module.exports = {
-    exsubcategory,addexsubcategory,postrxsubCategory
+    exsubcategory,addexsubcategory,postexsubCategory
 }

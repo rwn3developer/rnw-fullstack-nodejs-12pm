@@ -44,6 +44,7 @@
                   <th scope="col">Srno</th>
                   <th scope="col">Category</th>
                   <th scope="col">Subcategory</th>
+                  <th scope="col">Action</th>
 
                 </tr>
               </thead>
@@ -53,6 +54,7 @@
                         <td><%= i %></td>
                         <td><%= cat.categoryId.category %></td>
                         <td><%= cat.subcategory %></td>
+                        <td><a href="/subcategoryDelete?id=<%= cat.id %>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></td>
                       </tr>
                   <% }) %>
               </tbody>

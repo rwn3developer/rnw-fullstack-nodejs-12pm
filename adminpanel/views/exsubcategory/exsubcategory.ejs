@@ -44,15 +44,20 @@
                   <th scope="col">Srno</th>
                   <th scope="col">Category</th>
                   <th scope="col">Subcategory</th>
+                  <th scope="col">Exsubcategory</th>
+
 
                 </tr>
               </thead>
               <tbody>
-                  <% subcategory.map((cat,i)=>{i=i+1 %>
+                  <% exsubcategory.map((cat,i)=>{i=i+1 %>
                       <tr>
                         <td><%= i %></td>
                         <td><%= cat.categoryId.category %></td>
-                        <td><%= cat.subcategory %></td>
+                        <td><%= cat.subcategoryId.subcategory %></td>
+                        <td><%= cat.exsubcategory %></td>
+                       
+
                       </tr>
                   <% }) %>
               </tbody>

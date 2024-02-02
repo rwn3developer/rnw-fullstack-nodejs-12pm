@@ -55,8 +55,7 @@
                    <select name="category" class="form-control">
                       <option>---category---</option>
                       <% category.map((cate)=>{ %>
-                        <option value="<%= cate.id %>"><a href="https://www.w3schools.com/bootstrap/bootstrap_alerts.asp"><%= cate.category %></a></option>
-                         <a href="#"><%= cate.category %></a>
+                        <option value="<%= cate.id %>"><%= cate.category %></option>
                       <% }) %> 
                    </select> 
                   </div>
@@ -66,7 +65,7 @@
                   <label
                     for="fname"
                     class="col-sm-3 text-end control-label col-form-label"
-                    >Subcategory</label
+                    >Exsubcategory</label
                   >
                   <div class="col-sm-9">
                    <select name="subcategory" class="form-control">
@@ -85,7 +84,7 @@
                     >Subcategory</label
                   >
                   <div class="col-sm-9">
-                    <input name="subcategory"
+                    <input name="exsubcategory"
                       type="text"
                       class="form-control"
                       id="fname"

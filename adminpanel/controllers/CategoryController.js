@@ -1,4 +1,8 @@
 const CategoryModel = require('../models/CategoryModel');
+const SubcategoryModel = require('../models/SubcategoryModel');
+const ExsubcategoryModel = require('../models/ExsubcategoryModel');
+
+
 
 const category = async(req,res) => {
     try{
@@ -29,6 +33,19 @@ const postCategory = async(req,res) => {
     }
 }
 
+const categoryDelete = async(req,res) => {
+    try{
+        await CategoryModel.findByIdAndDelete(req.query.id);
+        await SubcategoryModel.deleteMany({categoryId : req.query.id});
+        await ExsubcategoryModel.deleteMany({categoryId : req.query.id });
+        req.flash('success',"Category successfully delete!");
+        return res.redirect('back');
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
 module.exports = {
-    category,addcategory,postCategory
+    category,addcategory,postCategory,categoryDelete
 }
