@@ -19,6 +19,14 @@ routes.post('/registerUser',authcontroller.registerUser);
 routes.post('/login',passport.authenticate('local',{failureRedirect : '/'}),authcontroller.login);
 
 
+
+//forgot password
+routes.post('/forgotpassword',authcontroller.forgotpassword);
+routes.get('/otp',authcontroller.otp);
+routes.post('/postOtp',authcontroller.postOtp);
+routes.get('/newpassword',authcontroller.newpassword);
+routes.post('/postNewpassword',authcontroller.postNewpassword);
+
 routes.get('/dashboard',passport.checkUser,authcontroller.dashboard);
 
 //category

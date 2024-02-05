@@ -9,6 +9,10 @@ app.set('view engine','ejs');
 
 const db = require('./config/db');
 
+const cookieParser = require('cookie-parser');
+
+app.use(cookieParser());
+
 
 const flash = require('connect-flash');
 
