@@ -12,13 +12,14 @@ const exsubcategorycontroller = require('../controllers/ExsubcategoryController'
 
 
 
+
 routes.get('/',authcontroller.index);
 routes.get('/register',authcontroller.register);
 routes.post('/registerUser',authcontroller.registerUser);
 
 routes.post('/login',passport.authenticate('local',{failureRedirect : '/'}),authcontroller.login);
 
-
+routes.get('/logout',authcontroller.logout);
 
 //forgot password
 routes.post('/forgotpassword',authcontroller.forgotpassword);
@@ -42,6 +43,8 @@ routes.get('/subcategory',passport.checkUser,subcategorycontroller.subcategory);
 routes.get('/addsubcategory',passport.checkUser,subcategorycontroller.addsubcategory);
 routes.post('/postsubCategory',passport.checkUser,subcategorycontroller.postsubCategory);
 routes.get('/subcategoryDelete',passport.checkUser,subcategorycontroller.subcategoryDelete);
+routes.get('/subcategoryEdit',passport.checkUser,subcategorycontroller.subcategoryEdit);
+routes.post('/updateSubCategory',passport.checkUser,subcategorycontroller.updateSubCategory);
 //subcategory
 
 

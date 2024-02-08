@@ -54,6 +54,34 @@ const subcategoryDelete = async(req,res) => {
     }
 }
 
+const subcategoryEdit = async(req,res) => {
+    try{
+        let category = await CategoryModel.find({});
+        let subcategorySingle = await SubcategoryModel.findById(req.query.id).populate("categoryId");
+        console.log(subcategorySingle);
+        return res.render('subcategory/edit_subcategory',{
+            category,subcategorySingle
+        })
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
+const updateSubCategory = async(req,res) => {
+    try{
+        let up = await SubcategoryModel.findByIdAndUpdate(req.body.id,{
+            categoryId : req.body.category,
+            subcategory : req.body.subcategory
+        })
+        req.flash('success', "subcategory edit")
+        return res.redirect('/subcategory')
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
 module.exports = {
-    subcategory,addsubcategory,postsubCategory,subcategoryDelete
+    subcategory,addsubcategory,postsubCategory,subcategoryDelete,subcategoryEdit,updateSubCategory
 }

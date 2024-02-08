@@ -15,6 +15,9 @@ const dashboard = (req,res) => {
 }
 
 const index = (req,res) => {
+    if(res.locals.users){
+        return res.redirect('/dashboard');
+    }
     return res.render('login')
 }
 
@@ -53,16 +56,16 @@ const forgotpassword = async(req,res) => {
             service: 'gmail',
             auth: {
               user: 'rwn3developer11@gmail.com',
-              pass: 'ypvx btil psoi avsd'
+              pass: 'koap ggkc apig pjeg'
             }
           });
           var mailOptions = {
-            from: 'rwn3developer11@gmail.com',
-            to: email,
+            from: 'rwn3developer11@gmail.com', 
+            to: email, //user email
             subject: `Otp`,
-            text: `Dear ${checkEmail.name} Your Otp :- ${otp}`
+            html: `Dear ${checkEmail.name} Your Otp :- ${otp}`
           };
-          transporter.sendMail(mailOptions, function(error, info){
+          transporter.sendMail(mailOptions, async function(error, info){
             if (error) {
               console.log(error);
             } else {
@@ -70,7 +73,7 @@ const forgotpassword = async(req,res) => {
               res.cookie('otp',{
                 otp : otp,
                 email : email
-              });
+              }); 
               return res.redirect('/otp');
             }
           });
@@ -87,6 +90,9 @@ const forgotpassword = async(req,res) => {
 
 const otp = async(req,res) => {
     try{
+        if(!req.cookies.otp){
+            return res.redirect('/');
+        }
         return res.render('otp');
     }catch(err){
         console.log(err);
@@ -102,7 +108,7 @@ const postOtp = async(req,res) => {
             return res.redirect('/newpassword')
         }else{
             console.log("Otp is wrong");
-            return res.redirect('back');
+            return res.redirect('back');  
         }
     }catch(err){
         console.log(err);
@@ -112,7 +118,7 @@ const postOtp = async(req,res) => {
 
 const newpassword = async(req,res) => {
     try{
-        return res.render('newpassword')
+        return res.render('newpassword') 
     }catch(err){
         console.log(err);
         return false;
@@ -141,6 +147,19 @@ const postNewpassword = async(req,res) => {
 
 }
 
+const logout = (req,res) => {
+    
+        req.logout((err)=>{
+            if(err){
+                console.log("user not logout");
+                return false;
+            }
+            console.log("User Logout");
+            return res.redirect('/');
+         })
+   
+}
+
 module.exports = {
-    dashboard,index,register,registerUser,login,forgotpassword,otp,postOtp,newpassword,postNewpassword
+    dashboard,index,register,registerUser,login,forgotpassword,otp,postOtp,newpassword,postNewpassword,logout
 }
