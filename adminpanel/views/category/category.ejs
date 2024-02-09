@@ -43,8 +43,8 @@
                 <tr>
                   <th scope="col">Srno</th>
                   <th scope="col">Category</th>
+                  <th>Status</th>
                   <th scope="col">Action</th>
-
                 </tr>
               </thead>
               <tbody>
@@ -52,6 +52,14 @@
                       <tr>
                         <td><%= i %></td>
                         <td><%= cat.category %></td>
+                        <td>
+                          <% if(cat.status === 1) { %>
+                            <a href="/categoryActive?id=<%= cat.id %>" class="btn btn-success btn-sm text-white">Active</a>
+                          <% } else { %>
+                            <a href="/categoryDective?id=<%= cat.id %>" class="btn btn-danger btn-sm text-white">Deactive</a>
+                          <% } %>
+                           
+                        </td>
                         <td><a href="/categoryDelete?id=<%= cat.id %>" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></a></td>
                       </tr>
                   <% }) %>

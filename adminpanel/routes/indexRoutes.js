@@ -35,6 +35,8 @@ routes.get('/category',passport.checkUser,categorycontroller.category);
 routes.get('/addcategory',passport.checkUser,categorycontroller.addcategory);
 routes.post('/postCategory',passport.checkUser,categorycontroller.postCategory);
 routes.get('/categoryDelete',passport.checkUser,categorycontroller.categoryDelete);
+routes.get('/categoryActive',passport.checkUser,categorycontroller.categoryActive);
+routes.get('/categoryDective',passport.checkUser,categorycontroller.categoryDective);
 //category
 
 

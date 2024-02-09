@@ -17,7 +17,7 @@ const subcategory = async(req,res) => {
 
 const addsubcategory = async(req,res) => {
     try{
-        let category = await CategoryModel.find({});
+        let category = await CategoryModel.find({status : {$eq : 1}});
         return res.render('subcategory/addsubcategory',{
             category
         });

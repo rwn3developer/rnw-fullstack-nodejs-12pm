@@ -46,6 +46,36 @@ const categoryDelete = async(req,res) => {
     }
 }
 
+const categoryActive = async(req,res) => {
+    try{
+        let id = req.query.id;
+        let status = 0;
+        let up = await CategoryModel.findByIdAndUpdate(id,{
+            status : status
+        })
+        req.flash('success',"Category successfully changed!");
+        return res.redirect('back');
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
+const categoryDective = async(req,res) => {
+    try{
+        let id = req.query.id;
+        let status = 1;
+        let up = await CategoryModel.findByIdAndUpdate(id,{
+            status : status
+        })
+        req.flash('success',"Category successfully changed!");
+        return res.redirect('back');
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
 module.exports = {
-    category,addcategory,postCategory,categoryDelete
+    category,addcategory,postCategory,categoryDelete,categoryActive,categoryDective
 }

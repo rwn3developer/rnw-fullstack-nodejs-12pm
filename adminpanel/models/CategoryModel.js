@@ -4,6 +4,10 @@ const userSchema = mongoose.Schema({
     category : {
         type : String,
         required : true,
+    },
+    status : {
+        type : Number,
+        default : 1
     }
 })
 
