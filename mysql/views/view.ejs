@@ -1,0 +1,23 @@
+<center>
+    <table border="1">
+        <thead>
+            <th>Srno</th>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            <% result.map((item,i)=>{i++ %>
+                <tr>
+                    <td><%= i %></td>
+                    <td><%= item.name %></td>
+                    <td><%= item.phone %></td>
+                    <td>
+                        <a href="/deleteRecord?id=<%= item.id %>">Delete</a>
+                    </td>
+                </tr>
+            <% }) %>
+            
+        </tbody>
+    </table>
+</center>

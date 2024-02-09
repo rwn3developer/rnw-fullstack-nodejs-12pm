@@ -25,11 +25,26 @@ const view = (req,res) => {
             console.log(err);
             return false;
         }
-        console.log(record);
-        return res.render('view');
+        var a = JSON.stringify(record);
+        var result = JSON.parse(a);
+        return res.render('view',{
+            result
+        });
+    })
+}
+const deleteRecord = (req,res) => {
+    var id = req.query.id;
+    var sql = "DELETE FROM `crud` WHERE id = "+id;
+    console.log(sql);
+    con.query(sql,(err)=>{
+        if(err){
+            console.log(err);
+            return false;
+        }
+        return res.redirect('back');
     })
 }
 
 module.exports = {
-    index,addRecord,view
+    index,addRecord,view,deleteRecord
 }
