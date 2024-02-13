@@ -45,6 +45,7 @@
                   <th scope="col">Category</th>
                   <th scope="col">Subcategory</th>
                   <th scope="col">Exsubcategory</th>
+                  <th scope="col">Action</th>
 
 
                 </tr>
@@ -56,7 +57,9 @@
                         <td><%= cat.categoryId.category %></td>
                         <td><%= cat.subcategoryId.subcategory %></td>
                         <td><%= cat.exsubcategory %></td>
-                       
+                        <td>
+                            <a href="/editexsubCategory?id=<%= cat.id %>" class="btn btn-primary btn-sm">Edit</a>
+                        </td>
 
                       </tr>
                   <% }) %>

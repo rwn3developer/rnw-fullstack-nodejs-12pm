@@ -6,9 +6,24 @@ const ExsubcategoryModel = require('../models/ExsubcategoryModel');
 const subcategory = async(req,res) => { 
     try{
         let subcategory = await SubcategoryModel.find({}).populate('categoryId');
-        return res.render('subcategory/subcategory',{
+
+        // let lookupCategory = await CategoryModel.aggregate([
+        //     {
+        //         $lookup : {
+        //             from : "subcategories",
+        //             localField : "_id",
+        //             foreignField : "categoryId",
+        //             as : "subcategory"
+        //         }
+        //     }
+        // ])
+
+        // console.log(lookupCategory);
+
+        res.render('subcategory/subcategory',{
             subcategory
         });
+
     }catch(err){
         console.log(err);
         return false;

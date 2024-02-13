@@ -51,11 +51,12 @@ routes.post('/updateSubCategory',passport.checkUser,subcategorycontroller.update
 
 
 
-//subcategory
+//exsubcategory
 routes.get('/exsubcategory',passport.checkUser,exsubcategorycontroller.exsubcategory);
 routes.get('/addexsubcategory',passport.checkUser,exsubcategorycontroller.addexsubcategory);
 routes.post('/postexsubCategory',passport.checkUser,exsubcategorycontroller.postexsubCategory);
-//subcategory
+routes.get('/editexsubCategory',passport.checkUser,exsubcategorycontroller.editexsubCategory);
+//exsubcategory
 
 
 
