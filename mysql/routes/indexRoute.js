@@ -8,5 +8,7 @@ routes.get('/',commoncontroller.index);
 routes.post('/addRecord',commoncontroller.addRecord);
 routes.get('/view',commoncontroller.view);
 routes.get('/deleteRecord',commoncontroller.deleteRecord);
+routes.get('/editRecord',commoncontroller.editRecord);
+routes.post('/updateRecord',commoncontroller.updateRecord);
 
 module.exports = routes;

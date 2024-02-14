@@ -13,7 +13,8 @@
                     <td><%= item.name %></td>
                     <td><%= item.phone %></td>
                     <td>
-                        <a href="/deleteRecord?id=<%= item.id %>">Delete</a>
+                        <a href="/deleteRecord?id=<%= item.id %>">Delete</a> ||
+                        <a href="/editRecord?id=<%= item.id %>">Edit</a>
                     </td>
                 </tr>
             <% }) %>

@@ -1,0 +1,22 @@
+<center>
+    <form method="post" action="/updateRecord">
+        <input type="text" name="id" value="<%= sin.id %>">
+        <table border="1">
+            <tr>
+                <td>Name :- </td>
+                <td>
+                    <input type="text" value="<%= sin.name %>" name="name">
+                </td>
+               
+            </tr>
+            <tr>
+                <td>Phone :- </td>
+                <td><input type="text" value="<%= sin.phone %>" name="phone"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit"></td>
+            </tr>
+        </table>
+    </form>
+</center>
