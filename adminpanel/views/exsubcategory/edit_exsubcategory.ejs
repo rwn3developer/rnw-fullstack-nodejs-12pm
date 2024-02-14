@@ -39,7 +39,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="card">
-            <form method="post" action="/postexsubCategory" class="form-horizontal">
+            <form method="post" action="/updateexsubCategory" class="form-horizontal">
+              <input type="hidden" name="id" value="<%= exsubcat.id %>">
               <div class="card-body">
                 <h4 class="card-title">Subcategory</h4>
                 <div class="form-group row">
@@ -73,7 +74,7 @@
                    <select name="subcategory" class="form-control">
                       <option>---subcategory---</option>
                       <% subcategory.map((subcate)=>{ %>
-                        <option value="<%= subcate.id %>"><%= subcate.subcategory %></option>
+                        <option <% if(exsubcat.subcategoryId.subcategory == subcate.subcategory) { %> selected <% } %> value="<%= subcate.id %>"><%= subcate.subcategory %></option>
                       <% }) %>
                    </select>
                   </div>
@@ -87,7 +88,7 @@
                   >
                   <div class="col-sm-9">
                     <input name="exsubcategory"
-                      type="text"
+                      type="text"  value="<%= exsubcat.exsubcategory %>"
                       class="form-control"
                       id="fname"
                       placeholder="Enter subcategory"

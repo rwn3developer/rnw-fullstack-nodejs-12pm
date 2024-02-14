@@ -56,6 +56,8 @@ routes.get('/exsubcategory',passport.checkUser,exsubcategorycontroller.exsubcate
 routes.get('/addexsubcategory',passport.checkUser,exsubcategorycontroller.addexsubcategory);
 routes.post('/postexsubCategory',passport.checkUser,exsubcategorycontroller.postexsubCategory);
 routes.get('/editexsubCategory',passport.checkUser,exsubcategorycontroller.editexsubCategory);
+routes.post('/updateexsubCategory',passport.checkUser,exsubcategorycontroller.updateexsubCategory);
+routes.get('/deleteexsubCategory',passport.checkUser,exsubcategorycontroller.deleteexsubCategory);
 //exsubcategory
 
 

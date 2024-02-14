@@ -53,12 +53,9 @@ const editexsubCategory = async(req,res) => {
         let id = req.query.id;
         let category = await CategoryModel.find({});
         let subcategory = await SubcategoryModel.find({});
-        let exsubcat = await ExsubcategoryModel.find({}).populate("categoryId").populate("subcategoryId");
+        let exsubcat = await ExsubcategoryModel.findById(id).populate("categoryId").populate("subcategoryId");
         
-        let ans = exsubcat.filter((ex)=>{
-            console.log(ex.categoryId.category == "mobile");
-        })
-
+    
         return res.render('exsubcategory/edit_exsubcategory',{
             category,
             subcategory,
@@ -70,7 +67,34 @@ const editexsubCategory = async(req,res) => {
     }
 }
 
+const updateexsubCategory = async(req,res) => {
+    try{
+       let up = await ExsubcategoryModel.findByIdAndUpdate(req.body.id,{
+            categoryId : req.body.category,
+            subcategoryId : req.body.subcategory,
+            exsubcategory : req.body.exsubcategory
+       })
+       if(up){
+            return res.redirect('/exsubcategory')
+       }
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
+const deleteexsubCategory = async(req,res) => {
+    try{
+        let id = req.query.id;
+        let de = await ExsubcategoryModel.findByIdAndDelete(id);
+        return res.redirect('back');
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
 module.exports = {
     exsubcategory,addexsubcategory,postexsubCategory,
-    editexsubCategory
+    editexsubCategory,updateexsubCategory,deleteexsubCategory
 }
