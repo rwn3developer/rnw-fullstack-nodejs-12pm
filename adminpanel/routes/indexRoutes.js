@@ -61,6 +61,7 @@ routes.get('/deleteexsubCategory',passport.checkUser,exsubcategorycontroller.del
 //exsubcategory
 
 
-
+//ajax
+routes.get(`/categoryWiseFilter`,passport.checkUser,exsubcategorycontroller.categoryWiseFilter);
 
 module.exports = routes

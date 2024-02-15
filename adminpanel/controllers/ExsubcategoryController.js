@@ -7,7 +7,6 @@ const ExsubcategoryModel = require('../models/ExsubcategoryModel');
 const exsubcategory = async(req,res) => { 
     try{
         let exsubcategory = await ExsubcategoryModel.find({}).populate('categoryId').populate('subcategoryId');
-        console.log(exsubcategory);
         return res.render('exsubcategory/exsubcategory',{
             exsubcategory
         });
@@ -94,7 +93,25 @@ const deleteexsubCategory = async(req,res) => {
     }
 }
 
+//ajax
+const categoryWiseFilter = async(req,res) => {
+    try{
+        let id = req.query.id;
+        let subcat = await SubcategoryModel.find({}).populate("categoryId");
+        let fil = subcat.filter((val)=>{
+            return val.categoryId.id == id;
+        })
+        return res.json({
+            category : fil
+        })
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
 module.exports = {
     exsubcategory,addexsubcategory,postexsubCategory,
-    editexsubCategory,updateexsubCategory,deleteexsubCategory
+    editexsubCategory,updateexsubCategory,deleteexsubCategory,
+    categoryWiseFilter
 }

@@ -1,6 +1,6 @@
 <%- include('../header') %>
 
-<div class="page-wrapper">
+  <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Bread crumb and right sidebar toggle -->
     <!-- ============================================================== -->
@@ -33,92 +33,75 @@
       <!-- ============================================================== -->
       <% if(message.success) { %>
         <div class="alert alert-success">
-            <%= message.success %>
+          <%= message.success %>
         </div>
-      <% } %>
-      <div class="row">
-        <div class="col-md-6">
-          <div class="card">
-            <form method="post" action="/postexsubCategory" class="form-horizontal">
-              <div class="card-body">
-                <h4 class="card-title">Subcategory</h4>
-                <div class="form-group row">
-                  <label
-                    for="fname"
-                    class="col-sm-3 text-end control-label col-form-label"
-                    >Category</label
-                  >
-                  <div class="col-sm-9">
+        <% } %>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <form method="post" action="/postexsubCategory" class="form-horizontal">
+                  <div class="card-body">
+                    <h4 class="card-title">Subcategory</h4>
+                    <div class="form-group row">
+                      <label for="fname" class="col-sm-3 text-end control-label col-form-label">Category</label>
+                      <div class="col-sm-9">
 
-                    
 
-                   <select name="category" class="form-control">
-                      <option>---category---</option>
-                      <% category.map((cate)=>{ %>
-                        <option value="<%= cate.id %>"><%= cate.category %></option>
-                      <% }) %> 
-                   </select> 
+
+                        <select onchange="categoryFilter()" id="categoryId" name="category" class="form-control">
+                          <option>---category---</option>
+                          <% category.map((cate)=>{ %>
+                            <option value="<%= cate.id %>">
+                              <%= cate.category %>
+                            </option>
+                            <% }) %>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="fname" class="col-sm-3 text-end control-label col-form-label">subcategory</label>
+                      <div class="col-sm-9">
+                        <select name="subcategory" id="subcategoryId" class="form-control">
+                           
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="fname" class="col-sm-3 text-end control-label col-form-label">Esubcategory</label>
+                      <div class="col-sm-9">
+                        <input name="exsubcategory" type="text" class="form-control" id="fname"
+                          placeholder="Enter subcategory" />
+                      </div>
+                    </div>
+
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label
-                    for="fname"
-                    class="col-sm-3 text-end control-label col-form-label"
-                    >subcategory</label
-                  >
-                  <div class="col-sm-9">
-                   <select name="subcategory" class="form-control">
-                      <option>---subcategory---</option>
-                      <% subcategory.map((subcate)=>{ %>
-                        <option value="<%= subcate.id %>"><%= subcate.subcategory %></option>
-                      <% }) %>
-                   </select>
+                  <div class="border-top">
+                    <div class="card-body">
+                      <button type="submit" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </div>
                   </div>
-                </div>
-
-                <div class="form-group row">
-                  <label
-                    for="fname"
-                    class="col-sm-3 text-end control-label col-form-label"
-                    >Esubcategory</label
-                  >
-                  <div class="col-sm-9">
-                    <input name="exsubcategory"
-                      type="text"
-                      class="form-control"
-                      id="fname"
-                      placeholder="Enter subcategory"
-                    />
-                  </div>
-                </div>
-                
+                </form>
               </div>
-              <div class="border-top">
-                <div class="card-body">
-                  <button type="submit" class="btn btn-primary">
-                    Submit
-                  </button>
-                </div>
-              </div>
-            </form>
+
+            </div>
+
           </div>
-         
-        </div>
-        
-      </div>
-      <!-- editor -->
-     
-      <!-- ============================================================== -->
-      <!-- End PAge Content -->
-      <!-- ============================================================== -->
-      <!-- ============================================================== -->
-      <!-- Right sidebar -->
-      <!-- ============================================================== -->
-      <!-- .right-sidebar -->
-      <!-- ============================================================== -->
-      <!-- End Right sidebar -->
-      <!-- ============================================================== -->
+          <!-- editor -->
+
+          <!-- ============================================================== -->
+          <!-- End PAge Content -->
+          <!-- ============================================================== -->
+          <!-- ============================================================== -->
+          <!-- Right sidebar -->
+          <!-- ============================================================== -->
+          <!-- .right-sidebar -->
+          <!-- ============================================================== -->
+          <!-- End Right sidebar -->
+          <!-- ============================================================== -->
     </div>
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
@@ -134,5 +117,29 @@
     <!-- End footer -->
     <!-- ============================================================== -->
   </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    function categoryFilter() {
+      var id = document.getElementById('categoryId').value;
+      $.ajax({
+        url: `http://localhost:8000/categoryWiseFilter?id=${id}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (res) {
+          let record = res.category
+          // 
+          let tbl = "";
+          var ans = record.map((val) => {
+                tbl += `
+                                
+                                    <option  value=${val.id}>${val.subcategory}</option>
+                            `
+                })
+                document.getElementById('subcategoryId').innerHTML = tbl;
+          }
+         
+      });
+    }
+  </script>
 
-<%- include('../footer') %>
+  <%- include('../footer') %>
