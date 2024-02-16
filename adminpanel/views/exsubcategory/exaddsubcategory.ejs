@@ -63,7 +63,7 @@
                       <label for="fname" class="col-sm-3 text-end control-label col-form-label">subcategory</label>
                       <div class="col-sm-9">
                         <select name="subcategory" id="subcategoryId" class="form-control">
-                           
+                          <option>---select subcategory</option>
                         </select>
                       </div>
                     </div>
@@ -130,14 +130,12 @@
           // 
           let tbl = "";
           var ans = record.map((val) => {
-                tbl += `
-                                
-                                    <option  value=${val.id}>${val.subcategory}</option>
-                            `
-                })
-                document.getElementById('subcategoryId').innerHTML = tbl;
-          }
-         
+            tbl += `
+                    <option  value=${val.id}>${val.subcategory}</option>
+                   `
+          })
+          document.getElementById('subcategoryId').innerHTML = tbl;
+        }
       });
     }
   </script>
