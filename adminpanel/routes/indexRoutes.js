@@ -9,13 +9,14 @@ const authcontroller = require('../controllers/AuthController');
 const categorycontroller = require('../controllers/CategoryController');
 const subcategorycontroller = require('../controllers/SubcategoryController');
 const exsubcategorycontroller = require('../controllers/ExsubcategoryController');
+const productcontroller = require('../controllers/ProductController');
 
 
 
 
 routes.get('/',authcontroller.index);
 routes.get('/register',authcontroller.register);
-routes.post('/registerUser',authcontroller.registerUser);
+routes.post('/registerUser',authcontroller.registerUser); 
 
 routes.post('/login',passport.authenticate('local',{failureRedirect : '/'}),authcontroller.login);
 
@@ -28,40 +29,45 @@ routes.post('/postOtp',authcontroller.postOtp);
 routes.get('/newpassword',authcontroller.newpassword);
 routes.post('/postNewpassword',authcontroller.postNewpassword);
 
-routes.get('/dashboard',passport.checkUser,authcontroller.dashboard);
+routes.get('/dashboard',authcontroller.dashboard);
 
 //category
-routes.get('/category',passport.checkUser,categorycontroller.category);
-routes.get('/addcategory',passport.checkUser,categorycontroller.addcategory);
-routes.post('/postCategory',passport.checkUser,categorycontroller.postCategory);
-routes.get('/categoryDelete',passport.checkUser,categorycontroller.categoryDelete);
-routes.get('/categoryActive',passport.checkUser,categorycontroller.categoryActive);
-routes.get('/categoryDective',passport.checkUser,categorycontroller.categoryDective);
+routes.get('/category',categorycontroller.category);
+routes.get('/addcategory',categorycontroller.addcategory);
+routes.post('/postCategory',categorycontroller.postCategory);
+routes.get('/categoryDelete',categorycontroller.categoryDelete);
+routes.get('/categoryActive',categorycontroller.categoryActive);
+routes.get('/categoryDective',categorycontroller.categoryDective);
 //category
 
 
 //subcategory
-routes.get('/subcategory',passport.checkUser,subcategorycontroller.subcategory);
-routes.get('/addsubcategory',passport.checkUser,subcategorycontroller.addsubcategory);
-routes.post('/postsubCategory',passport.checkUser,subcategorycontroller.postsubCategory);
-routes.get('/subcategoryDelete',passport.checkUser,subcategorycontroller.subcategoryDelete);
-routes.get('/subcategoryEdit',passport.checkUser,subcategorycontroller.subcategoryEdit);
-routes.post('/updateSubCategory',passport.checkUser,subcategorycontroller.updateSubCategory);
+routes.get('/subcategory',subcategorycontroller.subcategory);
+routes.get('/addsubcategory',subcategorycontroller.addsubcategory);
+routes.post('/postsubCategory',subcategorycontroller.postsubCategory);
+routes.get('/subcategoryDelete',subcategorycontroller.subcategoryDelete);
+routes.get('/subcategoryEdit',subcategorycontroller.subcategoryEdit);
+routes.post('/updateSubCategory',subcategorycontroller.updateSubCategory);
 //subcategory
 
 
 
 //exsubcategory
-routes.get('/exsubcategory',passport.checkUser,exsubcategorycontroller.exsubcategory);
-routes.get('/addexsubcategory',passport.checkUser,exsubcategorycontroller.addexsubcategory);
-routes.post('/postexsubCategory',passport.checkUser,exsubcategorycontroller.postexsubCategory);
-routes.get('/editexsubCategory',passport.checkUser,exsubcategorycontroller.editexsubCategory);
-routes.post('/updateexsubCategory',passport.checkUser,exsubcategorycontroller.updateexsubCategory);
-routes.get('/deleteexsubCategory',passport.checkUser,exsubcategorycontroller.deleteexsubCategory);
+routes.get('/exsubcategory',exsubcategorycontroller.exsubcategory);
+routes.get('/addexsubcategory',exsubcategorycontroller.addexsubcategory);
+routes.post('/postexsubCategory',exsubcategorycontroller.postexsubCategory);
+routes.get('/editexsubCategory',exsubcategorycontroller.editexsubCategory);
+routes.post('/updateexsubCategory',exsubcategorycontroller.updateexsubCategory);
+routes.get('/deleteexsubCategory',exsubcategorycontroller.deleteexsubCategory);
 //exsubcategory
+
+
+//product
+routes.get('/product',productcontroller.product)
 
 
 //ajax
-routes.get(`/categoryWiseFilter`,passport.checkUser,exsubcategorycontroller.categoryWiseFilter);
+routes.get(`/categoryWiseFilter`,exsubcategorycontroller.categoryWiseFilter);
+routes.get('/productWiseFilter',productcontroller.productWiseFilter)
 
 module.exports = routes
