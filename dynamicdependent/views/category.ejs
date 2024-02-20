@@ -1,0 +1,48 @@
+<table border="1">
+    <tr>
+        <td>Category :- </td>
+        <td>
+            <select onchange="categoryFilter()" id="category" name="category">
+                <option value="">---select category---</option>
+                <% cat.map((val)=>{ %>
+                    <option value="<%= val.id %>"><%= val.category %></option>
+                <% }) %>
+            </select>
+        </td>
+        
+    </tr>
+
+    <tr>
+        <td>subcategory :- </td>
+        <td>
+            <select id="subcat" name="subcategory">
+                <option>---select subcategory---</option>
+            </select>
+        </td>
+    </tr>
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript">
+    
+   const categoryFilter = () => {
+       let id = document.getElementById('category').value;
+       $.ajax({
+            type : "GET",
+            url : `http://localhost:8000/categorywisefilter?id=${id}`,
+            dataType : 'json',
+            success:function(res){
+                var tbl = ""
+                tbl += `<option>---select---</option>`
+               res.map((val)=>{
+                    tbl += `
+                                <option>${val.subcategory}</option>
+                            `
+               })
+               document.getElementById('subcat').innerHTML = tbl;
+            }
+       })
+   }
+    
+
+</script>
