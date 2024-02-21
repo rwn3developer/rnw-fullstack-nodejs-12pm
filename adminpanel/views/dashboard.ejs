@@ -1,5 +1,23 @@
 <%- include('header') %>
 
-
+        <center class="mt-5">
+            <form method="post" action="/postChangepassword">
+                <input type="hidden" name="email" value="<%= locals.users.email %>">
+                <table border="1">
+                    <tr>
+                        <td>current password :-  </td>
+                        <td><input type="text" name="currentpassword"></td>
+                    </tr>
+                    <tr>
+                        <td>new password :-  </td>
+                        <td><input type="text" name="newpassword"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><input type="submit" value="submit"></td>
+                    </tr>
+                </table>
+            </form>
+        </center>
 
 <%- include('footer') %>

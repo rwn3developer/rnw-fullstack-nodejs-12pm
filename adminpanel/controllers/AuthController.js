@@ -160,6 +160,22 @@ const logout = (req,res) => {
    
 }
 
+const postChangepassword = async(req,res) => {
+    try{
+        let user = await userModel.findOne({email : req.body.email});
+        let pass = await bcrypt.compare(req.body.currentpassword,user.password)
+        if(user || pass){
+                let update = await userModel.findOneAndUpdate({email : req.body.email},{
+                    password : await bcrypt.hash(req.body.newpassword,10)
+                });
+                console.log("password successfully changed");
+        }
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+}
+
 module.exports = {
-    dashboard,index,register,registerUser,login,forgotpassword,otp,postOtp,newpassword,postNewpassword,logout
+    dashboard,index,register,registerUser,login,forgotpassword,otp,postOtp,newpassword,postNewpassword,logout,postChangepassword
 }

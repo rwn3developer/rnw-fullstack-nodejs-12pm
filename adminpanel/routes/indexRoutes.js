@@ -70,4 +70,9 @@ routes.get('/product',productcontroller.product)
 routes.get(`/categoryWiseFilter`,exsubcategorycontroller.categoryWiseFilter);
 routes.get('/productWiseFilter',productcontroller.productWiseFilter)
 
+
+//change password
+routes.post('/postChangepassword',passport.checkUser,authcontroller.postChangepassword)
+
+
 module.exports = routes
