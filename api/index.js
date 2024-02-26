@@ -6,6 +6,10 @@ const app = express();
 
 const db = require('./config/db');
 
+const jwt = require('jsonwebtoken');
+
+const {verifyToken} = require('./middleware/Auth');
+
 const User = require('./models/User');
 const Category = require('./models/Category');
 
@@ -66,7 +70,7 @@ app.get('/alluser',async(req,res)=>{
         })
     }
 })
-app.post('/categoryAdd',async(req,res)=>{
+app.post('/categoryAdd',verifyToken,async(req,res)=>{
     try{
         let category = req.body.category;
         if(!category){
@@ -96,7 +100,7 @@ app.post('/categoryAdd',async(req,res)=>{
         })
     }
 })
-app.get('/categoryView',async(req,res)=>{
+app.get('/categoryView',verifyToken,async(req,res)=>{
     try{
         let category = await Category.find({});
         return res.status(200).send({
@@ -153,6 +157,28 @@ app.put('/categoryUpdate',async(req,res)=>{
          
     }
 
+})
+app.post('/login',async(req,res)=>{
+    try{
+        let email = req.body.email;
+        let password = req.body.password;
+        let user = await User.findOne({email : email});
+        if(!user || user.password != password){
+            return res.status(503).send({
+                success : false,
+                message : "Email and password not valid"
+            }) 
+        }
+        let token = jwt.sign({payload : user},"rnw4",{expiresIn : '1hr'});
+        return res.status(200).send({
+            success : true,
+            message : "Token is here",
+            token
+        }) 
+    }catch(err){
+        console.log(err);
+        return false;
+    }
 })
 app.listen(port,(err)=>{
     if(err){
