@@ -12,6 +12,7 @@ const {verifyToken} = require('./middleware/Auth');
 
 const User = require('./models/User');
 const Category = require('./models/Category');
+const Subcategory = require('./models/Subcategory');
 
 app.use(express.urlencoded());
 
@@ -178,6 +179,86 @@ app.post('/login',async(req,res)=>{
     }catch(err){
         console.log(err);
         return false;
+    }
+})
+//subcategory
+app.post('/subcategoryAdd',async(req,res)=>{
+    try{
+        let addsubcat = await Subcategory.create({
+            categoryId : req.body.category,
+            subcategory : req.body.subcategory
+        })
+        return res.status(200).send({
+            success : true,
+            message : "subcategory successfully add",
+            addsubcat
+        }) 
+    }catch(err){
+        return res.status(503).send({
+            success : false,
+            message : err
+        })
+    }
+})
+app.get('/subcategoryView',async(req,res)=>{
+    try{
+        //using populate method
+        // let subcat = await Subcategory.find({}).populate("categoryId");
+
+        //using aggregate method
+        let subcat = await Category.aggregate([
+            {
+                $lookup : {
+                    from : "subcategories",
+                    localField : "_id",
+                    foreignField : "categoryId",
+                    as : "subcategory"
+
+                }
+            }
+        ])
+        return res.status(200).send({
+            success : true,
+            message : "subcategory fetch",
+            subcat
+        }) 
+    }catch(err){
+        return res.status(503).send({
+            success : false,
+            message : err
+        })
+    }
+})
+app.delete('/subcategoryDelete',async(req,res)=>{
+    try{
+        let id = req.query.id;
+        await Subcategory.findByIdAndDelete(id);
+        return res.status(200).send({
+            success : true,
+            message : "subcategory delete",
+        }) 
+    }catch(err){
+        return res.status(503).send({
+            success : false,
+            message : err
+        })
+    }
+})
+app.put('/subcategoryUpdate',async(req,res)=>{
+    try{
+        let id = req.body.id;
+        await Subcategory.findByIdAndUpdate(id,{
+            subcategory : req.body.subcategory
+        })
+        return res.status(200).send({
+            success : true,
+            message : "subcategory updated",
+        }) 
+    }catch(err){
+        return res.status(503).send({
+            success : false,
+            message : err
+        })
     }
 })
 app.listen(port,(err)=>{
