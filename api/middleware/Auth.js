@@ -16,14 +16,27 @@ const verifyToken = async(req,res,next) => {
                     message : "Token is not valid" 
                 }) 
             }
+            req.user = decode;
+            return next();
         });
-        return next();
+       
     }catch(err){
         console.log(err);
         return false;
     }
 }
-
+const roleBaseAuth = (role)=>{
+    return (req,res,next) => { 
+        // console.log(req.user.payload.role);
+        if(!role.includes(req.user.payload.role)){
+            return res.status(200).send({ 
+                success : false,
+                message : "Only admin access" 
+            }) 
+        }
+        return  next();
+    }
+}
 module.exports = {
-    verifyToken
+    verifyToken,roleBaseAuth
 }

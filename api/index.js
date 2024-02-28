@@ -8,7 +8,7 @@ const db = require('./config/db');
 
 const jwt = require('jsonwebtoken');
 
-const {verifyToken} = require('./middleware/Auth');
+const {verifyToken, roleBaseAuth} = require('./middleware/Auth');
 
 const User = require('./models/User');
 const Category = require('./models/Category');
@@ -116,15 +116,15 @@ app.get('/categoryView',verifyToken,async(req,res)=>{
         })
     }
 })  
-app.delete('/categoryDelete',async(req,res)=>{
+app.delete('/categoryDelete',verifyToken,roleBaseAuth(["admin","manager"]),async(req,res)=>{
     try{
         let id = req.query.id;
         let check = await Category.findById(id);
         if(check){
             let deleteData = await Category.findByIdAndDelete(id);
             return res.status(200).send({
-                success : false,
-                message : "Category is delete"
+                success : true,
+                message : "Category is delete" 
             })
         }
     }catch(err){
