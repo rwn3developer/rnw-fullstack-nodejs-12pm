@@ -27,7 +27,6 @@ const verifyToken = async(req,res,next) => {
 }
 const roleBaseAuth = (role)=>{
     return (req,res,next) => { 
-        // console.log(req.user.payload.role);
         if(!role.includes(req.user.payload.role)){
             return res.status(200).send({ 
                 success : false,

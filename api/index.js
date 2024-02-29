@@ -6,15 +6,22 @@ const app = express();
 
 const db = require('./config/db');
 
+app.set('view engine','ejs');
+
 const jwt = require('jsonwebtoken');
+
+const cors = require('cors');
 
 const {verifyToken, roleBaseAuth} = require('./middleware/Auth');
 
 const User = require('./models/User');
 const Category = require('./models/Category');
 const Subcategory = require('./models/Subcategory');
+const  axios  = require('axios');
 
 app.use(express.urlencoded());
+app.use(cors());
+
 
 app.post('/register',async(req,res)=>{
         try{
@@ -71,22 +78,23 @@ app.get('/alluser',async(req,res)=>{
         })
     }
 })
-app.post('/categoryAdd',verifyToken,async(req,res)=>{
+app.post('/categoryAdd',async(req,res)=>{
     try{
         let category = req.body.category;
-        if(!category){
-            return res.status(200).send({
-                success : false,
-                message : "Category is required"
-            })
-        }
-        let dup  = await Category.findOne({category : category});
-        if(dup){
-            return res.status(200).send({
-                success : false,
-                message : "Category is already added"
-            }) 
-        }
+        console.log(category);
+        // if(!category){
+        //     return res.status(200).send({
+        //         success : false,
+        //         message : "Category is required"
+        //     })
+        // }
+        // let dup  = await Category.findOne({category : category});
+        // if(dup){
+        //     return res.status(200).send({
+        //         success : false,
+        //         message : "Category is already added"
+        //     }) 
+        // }
         let categoryadd = await Category.create({
             category : category,
         })
@@ -101,7 +109,7 @@ app.post('/categoryAdd',verifyToken,async(req,res)=>{
         })
     }
 })
-app.get('/categoryView',verifyToken,async(req,res)=>{
+app.get('/categoryView',async(req,res)=>{
     try{
         let category = await Category.find({});
         return res.status(200).send({
@@ -259,6 +267,35 @@ app.put('/subcategoryUpdate',async(req,res)=>{
             success : false,
             message : err
         })
+    }
+})
+//backend api calling
+app.get('/backend/api/category',async(req,res)=>{
+    try{
+        let record = await axios.get(`http://localhost:9000/categoryView`)
+        
+        return res.render('category',{
+            category : record.data.category
+        });
+    }catch(err){
+        console.log(err);
+        return false;
+    } 
+})
+app.get('/backend/api/categoryadd',(req,res)=>{
+    return res.render('addcategory')
+})
+app.post('/backend/api/categoryInsert',async(req,res)=>{
+    try{
+        let cat = JSON.stringify({category : req.body.category})
+        let add = await axios.post(`http://localhost:9000/categoryAdd`,{
+            category : cat
+        })
+        console.log(add);
+        return res.redirect('/backend/api/categoryadd')
+    }catch(err){
+        console.log(err);
+        return false;
     }
 })
 app.listen(port,(err)=>{

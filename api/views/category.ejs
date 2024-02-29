@@ -1,0 +1,17 @@
+<h1 align="center">Category</h1>
+
+<table align="center" border="1">
+        <tr>
+            <td>Srno</td>
+            <td>Category</td>
+        </tr>
+        <tbody>
+            <% category.map((val,i)=>{i++ %>
+                <tr>
+                    <td><%= i %></td>
+                    <td><%= val.category %></td>
+                </tr>
+            <% }) %>
+        </tbody>
+</table>
+<center><a href="/backend/api/categoryAdd">Add</a></center>
