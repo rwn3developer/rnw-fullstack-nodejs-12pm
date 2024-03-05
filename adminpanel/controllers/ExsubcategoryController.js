@@ -18,7 +18,7 @@ const exsubcategory = async(req,res) => {
 
 const addexsubcategory = async(req,res) => {
     try{
-        let category = await CategoryModel.find({});
+        let category = await CategoryModel.find({status : 1});
         let subcategory = await SubcategoryModel.find({});
 
         return res.render('exsubcategory/exaddsubcategory',{

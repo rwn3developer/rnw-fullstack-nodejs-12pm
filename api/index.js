@@ -19,6 +19,8 @@ const Category = require('./models/Category');
 const Subcategory = require('./models/Subcategory');
 const  axios  = require('axios');
 
+app.use(express.json());
+
 app.use(express.urlencoded());
 app.use(cors());
 
@@ -287,11 +289,10 @@ app.get('/backend/api/categoryadd',(req,res)=>{
 })
 app.post('/backend/api/categoryInsert',async(req,res)=>{
     try{
-        let cat = JSON.stringify({category : req.body.category})
+        let cat = req.body.category;
         let add = await axios.post(`http://localhost:9000/categoryAdd`,{
             category : cat
         })
-        console.log(add);
         return res.redirect('/backend/api/categoryadd')
     }catch(err){
         console.log(err);
