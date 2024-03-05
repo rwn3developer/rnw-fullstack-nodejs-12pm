@@ -17,6 +17,7 @@ const {verifyToken, roleBaseAuth} = require('./middleware/Auth');
 const User = require('./models/User');
 const Category = require('./models/Category');
 const Subcategory = require('./models/Subcategory');
+const Cart = require('./models/Cart');
 const  axios  = require('axios');
 
 app.use(express.json());
@@ -294,6 +295,31 @@ app.post('/backend/api/categoryInsert',async(req,res)=>{
             category : cat
         })
         return res.redirect('/backend/api/categoryadd')
+    }catch(err){
+        console.log(err);
+        return false;
+    }
+})
+app.post('/cartAdd',async(req,res)=>{
+    try{
+        let id = req.query.subcatid;
+        let subcat = await Subcategory.findById(id);
+        let dup = await Cart.findOne({subcatId : id});
+        if(dup){
+            return res.status(200).send({
+                success  :false,
+                message : "Item already in cart"
+            })
+        }
+        let addcart = await Cart.create({
+            subcategory : subcat.subcategory,
+            subcatId : id
+        })
+        return res.status(200).send({
+            success : true,
+            message : "Cart added",
+            addcart
+        })
     }catch(err){
         console.log(err);
         return false;
